@@ -1,0 +1,245 @@
+/* Custom CSS for KavakDataBot - Kavak Total Theme */
+
+:root {
+    --kavak-blue: #0c3175; /* Azul principal de Kavak */
+    --kavak-light-blue: #1a4694; /* Azul claro para efectos hover */
+    --kavak-gray: #9b9b9b; /* Gris para elementos secundarios */
+    --kavak-light-gray: #e1e1e1; /* Gris claro para bordes */
+    --kavak-white: #ffffff; /* Blanco para texto y fondos */
+    --kavak-dark: #171717; /* Oscuro para fondos de chat */
+}
+
+body {
+    background-color: #f7f7f7;
+}
+
+.navbar {
+    background-color: var(--kavak-blue) !important;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: var(--kavak-blue) !important;
+    color: var(--kavak-white) !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+    padding: 16px 20px;
+}
+
+.btn-primary {
+    background-color: var(--kavak-blue);
+    border-color: var(--kavak-blue);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--kavak-light-blue);
+    border-color: var(--kavak-light-blue);
+}
+
+.btn-light {
+    border-color: var(--kavak-light-gray);
+}
+
+/* Chat styling */
+.chat-message {
+    max-width: 100%;
+    margin-bottom: 16px;
+}
+
+.message-content {
+    max-width: 90%;
+    word-wrap: break-word;
+    border-radius: 12px;
+    padding: 14px 18px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.user-message .message-content {
+    background-color: var(--kavak-light-blue);
+    color: var(--kavak-white);
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message .message-content {
+    background-color: var(--kavak-dark);
+    color: var(--kavak-white);
+    border-bottom-left-radius: 2px;
+    position: relative;
+}
+
+/* Indicador de scroll para mensajes largos */
+.message-content.scrollable::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(transparent, rgba(23, 23, 23, 0.7));
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.avatar {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.user-message .avatar {
+    background-color: var(--kavak-blue);
+}
+
+.bot-message .avatar {
+    background-color: var(--kavak-blue);
+}
+
+#chatContainer {
+    padding: 20px;
+    background-color: #fbfbfb;
+    border-radius: 12px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+    height: 500px;
+    max-height: 500px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+pre {
+    background-color: #1e2132;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    border-left: 4px solid var(--kavak-blue);
+}
+
+code {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.875em;
+    color: #79c0ff;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+
+.bot-message code {
+    color: #79c0ff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bot-message pre code {
+    color: #e6e6e6;
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Input areas */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid var(--kavak-light-gray);
+    padding: 12px 16px;
+}
+
+.form-control:focus {
+    border-color: var(--kavak-blue);
+    box-shadow: 0 0 0 0.2rem rgba(12, 49, 117, 0.25);
+}
+
+/* Custom scrollbar for chat container and message content */
+#chatContainer::-webkit-scrollbar,
+.message-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chatContainer::-webkit-scrollbar-track,
+.message-content::-webkit-scrollbar-track {
+    background: var(--kavak-light-gray);
+    border-radius: 10px;
+}
+
+#chatContainer::-webkit-scrollbar-thumb,
+.message-content::-webkit-scrollbar-thumb {
+    background: var(--kavak-gray);
+    border-radius: 10px;
+}
+
+#chatContainer::-webkit-scrollbar-thumb:hover,
+.message-content::-webkit-scrollbar-thumb:hover {
+    background: var(--kavak-blue);
+}
+
+/* Button styles */
+.btn {
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 500;
+}
+
+/* Make textarea auto-resize */
+textarea {
+    resize: none;
+    overflow-y: hidden;
+    border-radius: 8px;
+}
+
+/* Logo styling */
+.kavak-logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* Empty chat styling */
+.empty-chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: var(--kavak-gray);
+}
+
+.empty-chat-container i {
+    color: var(--kavak-blue);
+    margin-bottom: 20px;
+    font-size: 60px;
+}
+
+/* Error message styling */
+.alert-danger {
+    background-color: #fff1f0;
+    border-color: #ffccc7;
+    color: #cf1322;
+}
+
+/* Loading indicator */
+#loadingIndicator {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+}
+
+/* Estilo para el indicador de documento fuente */
+.document-source {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+}
+
+.document-source i {
+    color: var(--kavak-light-blue);
+}
