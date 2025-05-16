@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="h4 mb-0">
+                        <i class="fas fa-comments me-2"></i>ASISTENTE DE DATOS
+                    </h1>
+                    <button id="newChatBtn" class="btn btn-sm btn-outline-light">
+                        <i class="fas fa-plus-circle me-1"></i>Nueva Conversación
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-primary bg-light border-0 text-dark rounded-3">
+                    <div class="d-flex">
+                        <div class="me-3">
+                            <i class="fas fa-info-circle fa-lg text-primary"></i>
+                        </div>
+                        <div>
+                            <p class="mb-0">
+                                Obtén respuestas sobre análisis de datos, definición de KPIs o cómo construir queries acerca del funnel de compras y ventas de Kavak.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Container -->
+                <div id="chatContainer" class="my-4 rounded">
+                    <div class="empty-chat-container">
+                        <i class="fas fa-robot"></i>
+                        <h4>Bienvenido a KavakDataBot</h4>
+                        <p>Haz una pregunta para comenzar la conversación...</p>
+                    </div>
+                </div>
+                
+                <!-- Question Form -->
+                <form id="questionForm" class="mb-3">
+                    <input type="hidden" id="sessionId" name="session_id" value="">
+                    <div class="input-group">
+                        <textarea 
+                            class="form-control" 
+                            id="question" 
+                            name="question" 
+                            rows="2" 
+                            placeholder="Ej., ¿Cómo puedo escribir una consulta SQL para encontrar los registros con ofertas por fecha en el funnel de compras?"
+                            required
+                        ></textarea>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="form-text mt-1">Presiona Enter para enviar, Shift+Enter para nueva línea</div>
+                </form>
+                
+                <!-- Loading Indicator (initially hidden) -->
+                <div id="loadingIndicator" class="position-absolute top-50 start-50 translate-middle p-4 rounded text-center" style="display: none; z-index: 10;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <p class="mt-2 mb-0">Procesando tu pregunta...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Error Alert (initially hidden) -->
+        <div class="alert alert-danger" id="errorAlert" style="display: none;">
+            <div class="d-flex">
+                <div class="me-3">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div>
+                    <span id="errorMessage"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <!-- Tips and Examples Card -->
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h3 class="h5 mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>Consejos de Uso
+                </h3>
+            </div>
+            <div class="card-body">
+                <h4 class="h6 fw-bold text-primary">Ejemplos de Preguntas:</h4>
+                <ul class="list-unstyled ps-3">
+                    <li class="mb-2"><i class="fas fa-chart-line me-2 text-muted"></i>"¿Como calcular las reservas brutas de venta?"</li>
+                    <li class="mb-2"><i class="fas fa-tachometer-alt me-2 text-muted"></i>"¿Cuáles son los principales KPIs utilizados en el reporte del funnel de ventas?"</li>
+                    <li class="mb-2"><i class="fas fa-database me-2 text-muted"></i>"¿Cómo puedo escribir una consulta SQL para encontrar los registros con ofertas por fecha en el funnel de compras?"</li>
+                    <li class="mb-2"><i class="fas fa-calculator me-2 text-muted"></i>"Explícame qué significa la métrica 'Oportunidades de Venta' en el funnel de ventas y cómo se calcula"</li>
+                </ul>
+                
+                <h4 class="h6 fw-bold text-primary mt-4">Mejores Prácticas:</h4>
+                <ul class="list-unstyled ps-3">
+                    <li class="mb-2"><i class="fas fa-check me-2 text-success"></i><strong>Especifica si tu pregunta se refiere al funnel de ventas (sales) o compras (supply)</strong></li>
+                    <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>Sé específico sobre qué información buscas</li>
+                    <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>Especifica métricas o columnas de interés</li>
+                    <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>Incluye períodos de tiempo relevantes</li>
+                    <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>Pregunta sobre definiciones técnicas</li>
+                    <li class="mb-2"><i class="fas fa-check me-2 text-success"></i>Haz preguntas de seguimiento para profundizar</li>
+                </ul>
+                
+                <div class="alert alert-light border mt-4">
+                    <p class="mb-0 small">
+                        <i class="fas fa-info-circle me-1 text-primary"></i>
+                        <strong>Importante:</strong> Para obtener respuestas más precisas, especifica siempre si tu pregunta se refiere al funnel de ventas (sales) o al funnel de compras (supply). Puedes usar los términos en español o inglés indistintamente. El sistema seleccionará automáticamente el documento más relevante para responder tu pregunta basándose en esta información.
+                    </p>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="/documentos" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-file-alt me-1"></i>
+                        Verificar Documentos Cargados
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
